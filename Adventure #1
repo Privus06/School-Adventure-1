@@ -1,0 +1,81 @@
+#include <iostream>		// for cout and cin
+#include <ctime>		// for string
+#include <string>  		// for rand
+#include <cstdlib>		// for rand
+using namespace std;
+
+int main() {
+
+/*welcome the player
+set up the game
+    int health = 10, attack, block, turns = 0
+    seed the random number generator
+start the loop
+    add 1 to turns
+    start the encounter
+        randomly generate numbers for attack (range = 0-4) and block (range = 0-4)
+        if block is greater or equal to attack, successful block
+        otherwise, subtract attack value from health.
+keep looping while health is greater than zero and fewer than 4 turns have happened
+
+if health is greater than 0, congratulate player
+otherwise, tell the player they're dead.
+
+Beyond effort and polish (some of which is described below), here are some other things you can do to improve your grade:
+Make the number of turns before the adventure is over random.
+If the player's health is below a certain number, tell them to go see the doctor.
+Incorporate sleep() to change the pacing of the game and not have it all come out at once.
+Send me a link in the comments to your assignment hosted publicly, like on github.com (good for showing off what you know to future employers)
+Ask the player if they'd like to see all of the numbers used in the game (a debug mode) and if they do, post them at every point they're used. */
+
+//Introduction
+	cout << "Hello, adventurer! Good luck on not dying. :)\n";
+
+//Variables
+	srand(time(0));
+	int health = 10;
+	int attack = 4;
+	int block = 4;
+	int damage;
+	int turns = 1;
+	int end = rand() % 4 +4;
+	bool debug;
+	char answer;
+
+	cout << "Would you like to enable debug mode? (Y/N)\n > ";
+	cin >> answer;
+	if(answer == 'Y') {
+		debug = true;
+	}
+	else{
+		debug = false;
+	}
+
+	do{	
+		cout << "Current turn = " << turns << endl;
+		cout << "Turns you need to survive = " << end << endl;
+		attack = rand() % 4;
+		block = rand() % 4;
+		turns++;
+		if (debug == true) {
+			cout << "attack = " << attack << endl;
+			cout << "block = " << block << endl;
+		}
+
+		if(attack > block) {
+			damage = (block - attack) * -1;
+			health -= damage;
+			cout << "You took " << damage << " damage!\n";
+			cout << "That leaves you with " << health << " health!\n \n";
+		}
+		else
+			cout << "You took 0 damage!\n \n";
+
+	}while(health > 0 && turns < end );
+
+	if(health <= 0) {
+		cout << "You done did died :( sowwy\n";
+	}
+	else {
+		cout << "You survived with " << health << " health! Congrats!\n";
+	}
