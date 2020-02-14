@@ -1,0 +1,217 @@
+#include <iostream>											// For cin & cout
+#include <string>											// for string
+#include <ctime>											// for srand(time(0))
+#include <cstdlib>											// 'C Standard Library' for rand()
+using namespace std;										// Don't have to use std::
+
+int main() {
+/*
+    pseudocode for chapter 3 homework assignment
+
+    create an array of strings with a size of 10.
+    explain the story to the player, whatever story you wish to tell.
+        the player starts with 3 items.
+        over the course of several adventures, 
+        1.  the player gains 3 items and has to name each of them.
+            for example: BunnySword or FlameGuitar
+             - because of cin limitations, the name can only be one word.
+        2.  the player uses 1 item, making it go away.
+        3. at each change in inventory - show the changes with a for loop that ignores strings that have "" no characters.
+        
+        For the final challenge, the player must give up their most treasured item to the bridge troll (or similar) to get past the bridge.
+            The player will have to search for that item inside of a for loop.
+*/
+
+	//Introduction
+	cout << "Salutations player, what do you go by?\n";
+	cout << "> ";
+	string player;
+	cin >> player;
+	cout << player << "? Good enough I guess.\n \n";
+	string typo = "Your typo has killed your character, sorry :(\n";
+
+	//The story
+	cout << "Well " << player << ", you find youself inside a small, dark, wooden room.\n";
+	cout << "In the back of the room is a locked metal door and in the middle is a small metal table\n";
+	cout << "On the table is a key made of bones, a rusty knife, and a bottle of luminescent green liquid\n";
+
+	//The inventory
+	const int invSize = 10;				//inventory size
+	int itemCount = 0;
+	string inv[invSize];
+
+	inv[itemCount++] = "SkeletonKey";
+	inv[itemCount++] = "RustyKnife";
+	inv[itemCount++] = "StrangeLiquid";
+	inv[itemCount++] = "--";
+	inv[itemCount++] = "--";
+	inv[itemCount++] = "--";
+	inv[itemCount++] = "--";
+
+	//Inventory Check
+	cout << "You pick these items up. Are you ready to check your inventory?\n";
+	cout << "Yes/No (Make sure to capitlize!) \n< ";
+	string answer;
+	cin >> answer;
+	bool checkInventory;
+	if(answer == "Yes") {
+		checkInventory = true;
+	}
+	else {
+		checkInventory = false;
+	}
+
+	for(int i = 0; i < invSize; i++) {
+		if(checkInventory == true) {
+			cout << inv[i] << endl;
+		}
+		else {
+			cout << "Well, uh okay then... I guess.\n";
+		}
+	}
+
+	//Escaping the room
+	bool door;
+	string doorEscape;
+	cout << "You walk up to the door and decide to use one of your handy dandy items on it, which would you like to use?\n> ";
+	cin >> doorEscape;
+	if(doorEscape == "SkeletonKey") {
+		door = true;
+	}
+	else if(doorEscape == "RustyKnife") {
+		door = false;
+		cout << "The knife breaks off inside the lock, trapping you inside the room forever and you die. :(\n";
+		return 0;
+	}
+	else if(doorEscape == "StrangeLiquid") {
+		door = false;
+		cout << "The liquid pours onto the handle and explodes, destroying your hands and head and you die :(\n";
+		return 0;
+	}
+	else {
+		door = false;
+		cout << typo;
+		return 0;
+	}
+
+	cout << "The second you turn the key inside the lock, the key breaks apart, never to be used again. However, the door ";
+	cout << "also unlocks, allowing you to open it and move on. Congrats on getting passed your first obstacle!\n \n";
+
+	//Inventory Check
+	inv[0] = "--";
+	for(int i = 0; i < invSize; i++) {
+		cout << inv[i] << endl;
+		}
+
+	// Second room
+	cout << "The room you've entered is covered in sand and filled with giant horrible insectoids.\n";
+	cout << "In the middle is rope hanging from a hole in the ceiling. You begin to run towards it until you feel a burning in your pocket.\n";
+	cout << "You check your inventory and the liquid has changed colors to bright red. You have an urge to drink this liquid.\n";
+	cout << "Do you drink?\n BottomsUp!/HeckNo!\n< ";
+	string drink;
+	cin >> drink;
+
+	if(drink == "BottomsUp!") {
+		cout << "You chug that bad boy like there's no tomorrow and begin to feel something familiar, something powerful...\n";
+	}
+	else if(drink == "HeckNo!") {
+		cout << "You decide that's a big dumb and make a sprint towards the rope. Unfortunately those insects are too quick and they begin to eat you alive. Sowwy :(\n";
+		return 0;
+	}
+	else{
+		cout << typo;
+		return 0;
+	}
+
+	cout << "You pull your rusty knife out and run your hand across, suddenly it beings to change form...\n";
+	cout << "You now wield a massive broadsword that has a slight red and green tint to it.\n";
+	cout << "What would you like to name this new sword?\n";
+	cin >> inv[0];
+	cout << "Yes..." << inv[0] << " is a perfect name. With it, you casually cut your way through this infestation until you reach the rope in the middle. You climb your way up.\n";
+	cout << "Congrats, you've made your way through room 2!\n \n";
+	inv[1] = "--";
+	inv[2] = "--";
+	for(int i = 0; i < invSize; i++) {;
+		cout << inv[i] << endl;
+		}
+
+	//Third room
+	cout << "Once you reach the new floor you immediately notice the change. The room is green... nasty horrible green like mucus and the floor is soft to walk on. In this room there are giant worms with mouths for their entire heads.\n";
+	cout << "You also notice a wooden door at the far end. You check behind you and you see it, kept within a glass case. Your heart.\n";
+	cout << "Do you kill the worms or go for your heart first?\n Kill/Heart\n> ";
+	string thirdRoom;
+	cin >> thirdRoom;
+	if(thirdRoom == "Kill") {
+		cout << "You decide killing is the best option... and it is. You easily cut through the monsters before returning to your heart.\n";
+	}
+	else if(drink == "HeckNo!") {
+		cout << "You go for your heart first and once it's returned to you, you realise your mistake. The sickness of the room, no the world is too much for you and you die.\n";
+		return 0;
+	}
+	else{
+		cout << typo;
+		return 0;
+	}
+
+	string heart;
+	cout << "What is the name of your heart?\n> ";
+	cin >> heart;
+	cout << "\n";
+	inv[1] = heart;
+		inv[1] = heart;
+	for(int i = 0; i < invSize; i++) {;
+		cout << inv[i] << endl;
+		}
+
+	cout << "After claiming your heart you go to the wooden door and it opens before you, since it can't contain something that is truly alive.\n";
+
+	//The Last room
+	cout << "Before you is a room with bones for ground and blood for walls.\n";
+	cout << "In the center is a cauldron with a luminescent light blue liquid.\n";
+	cout << "At the far end stands a man in black, standing in front of the exit!\n";
+	cout << "You know what to do, drink the cauldron to reclaim your mortal soul.\n";
+	cout << "Do you drink?\n Yes/No\n> ";
+	string cauldron;
+	cin >> cauldron;
+
+	if(cauldron == "Yes") {
+		cout << "You have reclaimed your Soul. The final step is within reach.\n";
+	}
+	else if(cauldron == "No") {
+		cout << "You are too afraid for what comes next, so you return to your cell to die again for another 1,000 years.\n";
+		return 0;
+	}
+	else {
+		cout << typo;
+		return 0;
+	}
+
+	string soul;
+	cout << "What is the name of your Soul?\n> ";
+	cin >> soul;
+	inv[2] = soul;
+
+	for(int i = 0; i < invSize; i++) {;
+		cout << inv[i] << endl;
+		}
+
+	cout << "The man in black waits for you and his difficult ultimatum is instantly known to you. You have to give up something in order to pass. Either your Heart or your Soul. What do you choose?\n" << heart << "/" << soul << "\n> ";
+
+	string sacrifice;
+	cin >> sacrifice;
+
+	if(sacrifice == heart) {
+		cout << "Man in Black: You chose to throw away your heart? Then go on and consume the hearts of men " << player << " Consumer of Worlds!";
+		return 0;
+	}
+	else if(sacrifice == soul) {
+		cout << "Man in Black: You chose to throw away your soul? Fine then, go ahead drain the souls of men " << player << " Harbinger of the End!";
+		return 0;
+	}
+	else {
+		cout <<"Can't decide? then back to depths with you!";
+		return 0;
+	}
+
+	return 0;
+}
